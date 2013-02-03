@@ -1,7 +1,18 @@
 WoTBoT v.0.32
 ======
 
-WoTBoT - это программа бот для игры World of Tanks.
+WoTBoT - это программа бот, написанная на скриптовом языке комплекса AutoIt.
+  
+    SciTE Version 3.2.0
+    Jun  9 2012 00:35:28  
+    by Neil Hodgson.  
+    Updated: Valik & Jos  
+    Check the SciTE4AutoIt3 Homepage for Updates  
+    December 1998-June 2012.  
+    http://www.scintilla.org  
+    Lua scripting language by TeCGraf, PUC-Rio  
+    http://www.lua.org
+    
 Программа представляет собой простейший настраиваемый бот для игры WorldOfTanks.
 В данной версии бот умеет двигаться вперёд, поворачивать, разворачиваться искать цель и стрелять по ней.
 Выбор танков для боя осуществляется автоматически из выбранных активными танков первых пяти слотов.
