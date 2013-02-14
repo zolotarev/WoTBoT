@@ -54,12 +54,12 @@ GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
 $Label14 = GUICtrlCreateLabel("+ Танки должны автоматически ремонтироваться и пополняться снарядами, не используйте САУ", 16, 320, 506, 17)
 $Label15 = GUICtrlCreateLabel("Настройка движения (вероятности)", 16, 456, 217, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$razgovor = GUICtrlCreateSlider(192, 480, 230, 17, 0)
+$talks_editor = GUICtrlCreateSlider(192, 480, 230, 17, 0)
 GUICtrlSetLimit(-1, 10, 0)
 GUICtrlSetData(-1, 2)
 $Label16 = GUICtrlCreateLabel("Разговорчики", 16, 480, 75, 17)
 $Label17 = GUICtrlCreateLabel("Поворот на ходу", 16, 504, 87, 17)
-$povorot = GUICtrlCreateSlider(192, 504, 230, 17, 0)
+$turns_editor = GUICtrlCreateSlider(192, 504, 230, 17, 0)
 GUICtrlSetLimit(-1, 10, 0)
 GUICtrlSetData(-1, 2)
 $Label18 = GUICtrlCreateLabel("Остановка", 16, 528, 59, 17)
@@ -78,9 +78,9 @@ $Label19 = GUICtrlCreateLabel("Запуск всегда начинается с ангара!", 400, 464, 22
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
 $stopButton = GUICtrlCreateButton("Стоп (END на клавиатуре)", 448, 520, 163, 65)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
-$povorot_p = GUICtrlCreateLabel("0", 120, 504, 50, 17)
+$turns_editor_p = GUICtrlCreateLabel("0", 120, 504, 50, 17)
 $Label23 = GUICtrlCreateLabel("%", 176, 504, 12, 17)
-$razgovor_p = GUICtrlCreateLabel("0", 120, 480, 50, 17)
+$talks_editor_p = GUICtrlCreateLabel("0", 120, 480, 50, 17)
 $Label25 = GUICtrlCreateLabel("%", 176, 480, 12, 17)
 $ostanovka_p = GUICtrlCreateLabel("0", 120, 528, 50, 17)
 $Label27 = GUICtrlCreateLabel("%", 176, 528, 12, 17)
@@ -93,7 +93,7 @@ $Label21 = GUICtrlCreateLabel("Текущий статус", 193, 616, 99, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
 $status = GUICtrlCreateLabel("Ничего не делаем", 296, 616, 322, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-TraySetIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1)
+TraySetIcon("mainIcon.ico", -1)
 TraySetClick("0")
 $MenuItem1 = TrayCreateItem("О программе")
 GUISetState(@SW_SHOW)
@@ -131,93 +131,102 @@ $_slot[5][2] = 666
 
 $_slot[6][0] = 0
 
-writeLog("WoT-BoT v1.3")
 Opt("MouseCoordMode", 2)
 Opt("PixelCoordMode", 2)
 Opt("SendKeyDownDelay", 100)
 Opt("MouseClickDownDelay", 100)
-HotKeySet("{END}", "endpos")
+HotKeySet("{END}", "gameStop")
 
 Dim $coord[3]
-Local $x
-Local $y
-Local $color = 0xf1160b ; red
-Local $dirt = 8
-Local $margin = 20
-Local $margin2 = 10
-Local $tankIndex = 1
-Local $exePath = "C:\Games\World_of_Tanks\WoTLauncher.exe"
-Local $_razgovor = 2
-Local $_povorot = 2
-Local $_ostanovka = 2
+Global $x
+Global $y
+Global $color = 0xf1160b ; red
+Global $dirt = 8
+Global $margin = 20
+Global $margin2 = 10
+Global $tankIndex = 1
+Global $exePath = "C:\Games\World_of_Tanks\WoTLauncher.exe"
+Global $_talks = 2
+Global $_turns = 2
+Global $_stops = 2
 
-Local $_iskatCeli = 1
-Local $_strelyat = 1
-Local $_ostanovkaPriCeli = 1
+Global $_searchTarget = 1
+Global $_fires = 1
+Global $_stopsOnTergetting = 1
+Global $_log = "WoT-BoT v1.32"
+Global $_logIndex = 0
 
 
+mainGUI()
 
-;=============== ОСНОВНОЙ ЦИКЛ ===================
-While 1
-	$nMsg = GUIGetMsg()
-	Switch $nMsg
-		Case $GUI_EVENT_CLOSE
-			Exit
+;=============== ОСНОВНОЙ GUI ЦИКЛ ===================
+Func mainGUI()
+	While 1
+		$nMsg = GUIGetMsg()
+		Switch $nMsg
+			Case $GUI_EVENT_CLOSE
+				closeApp()
 
-		Case $startButton
-			writeLog("Запуск бота")
-			start()
+			Case $startButton
+				writeLog("Запуск бота")
+				start()
 
-		Case $razgovor
-			$value = Round(GUICtrlRead($razgovor) / 10000 * 100)
-			GUICtrlSetData($razgovor_p, $value)
-			$_razgovor = 10000 - $razgovor;
+			Case $talks_editor
+				$value = Round(GUICtrlRead($talks_editor) / 10000 * 100)
+				GUICtrlSetData($talks_editor_p, $value)
+				$_talks = 10000 - $talks_editor;
 
-		Case $povorot
-			$value = Round(GUICtrlRead($povorot) / 10000 * 100)
-			GUICtrlSetData($povorot_p, $value)
-			$_povorot = 10000 - $povorot;
+			Case $turns_editor
+				$value = Round(GUICtrlRead($turns_editor) / 10000 * 100)
+				GUICtrlSetData($turns_editor_p, $value)
+				$_turns = 10000 - $turns_editor;
 
-		Case $ostanovka
-			$value = Round(GUICtrlRead($ostanovka) / 10000 * 100)
-			GUICtrlSetData($ostanovka_p, $value)
-			$_ostanovka = 10000 - $ostanovka;
+			Case $ostanovka
+				$value = Round(GUICtrlRead($ostanovka) / 10000 * 100)
+				GUICtrlSetData($ostanovka_p, $value)
+				$_stops = 10000 - $ostanovka;
 
-		Case $ostanovkaPriCeli
-			If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
-				$_ostanovkaPriCeli = 1
-			Else
-				$_ostanovkaPriCeli = 0
-			EndIf
+			Case $ostanovkaPriCeli
+				If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
+					$_stopsOnTergetting = 1
+				Else
+					$_stopsOnTergetting = 0
+				EndIf
 
-		Case $strelyat
-			If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
-				$_strelyat = 1
-			Else
-				$_strelyat = 0
-			EndIf
+			Case $strelyat
+				If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
+					$_fires = 1
+				Else
+					$_fires = 0
+				EndIf
 
-		Case $iskatCeli
-			If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
-				$_iskatCeli = 1
-			Else
-				$_iskatCeli = 0
-			EndIf
+			Case $iskatCeli
+				If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
+					$_searchTarget = 1
+				Else
+					$_searchTarget = 0
+				EndIf
 
-		Case $slot1 Or $slot2 Or $slot3 Or $slot4 Or $slot5
-			setSlotsValue($nMsg)
-	EndSwitch
-WEnd
-
+			Case $slot1 Or $slot2 Or $slot3 Or $slot4 Or $slot5
+				setSlotsValue($nMsg)
+		EndSwitch
+	WEnd
+EndFunc   ;==>mainGUI
 ;=============== БЛОК ФУНКЦИЙ=====================
 
 ;=== Запись лога
 Func writeLog($log)
 	If ($log <> "") Then
-		;$text = GUICtrlRead($logs)
-		GUICtrlSetData($logs, @CR & @LF & $log, 1)
+		$_logIndex = $_logIndex + 1
+		If ($_logIndex > 50) Then
+			$_logIndex = 0;
+			GUICtrlSetData($logs, @CR & @LF & $log)
+		Else
+			GUICtrlSetData($logs, @CR & @LF & $log, 1)
+		EndIf
 		ToolTip("")
 		ToolTip($log)
+		$_log = $_log & @CRLF & $log
 	EndIf
 EndFunc   ;==>writeLog
 
@@ -267,19 +276,96 @@ Func setSlotsValue($nMsg)
 				writeLog("Слот5 не активен")
 			EndIf
 	EndSwitch
- EndFunc   ;==>setSlotsValue
+EndFunc   ;==>setSlotsValue
 
+
+;=== Вероятность поворота во время прямого движения
+Func doTurn()
+	If Random(0, Random(0, 10000) < $_turns) Then
+		If (Random(0, 100) > 50) Then
+			Send("{в down}")
+			Send("{d down}")
+			Sleep(Random(0, Random(100, 2000)))
+			Send("{в up}")
+			Send("{d up}")
+		Else
+			Send("{ф down}")
+			Send("{a down}")
+			Sleep(Random(0, Random(100, 2000)))
+			Send("{ф up}")
+			Send("{a up}")
+		EndIf
+	EndIf
+EndFunc   ;==>doTurn
+
+Func doDetour()
+	Sleep(500)
+	Send("{ц up}")
+	Send("{w up}")
+	Sleep(500)
+	Send("{ы down}")
+	Send("{s down}")
+	Sleep(Random(3000, Random(4000, 6000)))
+	$direction = ""
+	If (Random(0, 100) > 50) Then
+		$direction = "right"
+		Send("{в down}")
+		Send("{d down}")
+		Sleep(Random(500, Random(1000, 3000)))
+		Send("{в up}")
+		Send("{d up}")
+	Else
+		$direction = "left"
+		Send("{ф down}")
+		Send("{a down}")
+		Sleep(Random(500, Random(1000, 3000)))
+		Send("{ф up}")
+		Send("{a up}")
+	EndIf
+	Sleep(Random(200, Random(300, 2000)))
+	Send("{ы up}")
+	Send("{s up}")
+	Sleep(Random(200, Random(300, 3000)))
+	Send("{ц down}")
+	Send("{w down}")
+	Sleep(Random(200, Random(300, 5000)))
+	If ($direction == "left") Then
+		Send("{в down}")
+		Send("{d down}")
+		Sleep(Random(500, Random(1000, 3000)))
+		Send("{в up}")
+		Send("{d up}")
+	Else
+		Send("{ф down}")
+		Send("{a down}")
+		Sleep(Random(500, Random(1000, 3000)))
+		Send("{ф up}")
+		Send("{a up}")
+	EndIf
+EndFunc   ;==>doDetour
 
 ;=============== ОСНОВНОЙ ИГРОВОЙ БЛОК ===========
 Func start()
-
-
 	writeLog('Ищем запущенную игру')
 	Sleep(1000)
 	WinActivate("[TITLE:WoT Client]")
+	Local $hWnd = WinWait("[TITLE:WoT Client]", "", 10)
+
+	If ($hWnd == 0) Then
+		writeLog("Танки не запущены. Выходим.")
+		Sleep(5000)
+		mainGUI()
+	EndIf
 
 
 	While WinActive("[TITLE:WoT Client]")
+		While (PixelGetColor(472, 613) == 0x9C1620)
+			writeLog("О, форма входа. Заходим.")
+			WinActivate("[TITLE:WoT Client]")
+			MouseClick("Left", 1006, 78)
+			Sleep(1000)
+		WEnd
+
 		GUICtrlSetData($status, "Работа в ангаре", 1)
 
 		While (PixelGetColor(530, 489) == 0x100f0b)
@@ -326,13 +412,13 @@ Func start()
 			WEnd
 
 			;Бой
-			writeLog("Вошли в бой")
+			writeLog("Бой начинается")
 			Send("{UP down}")
 			Sleep(500)
 			Send("{UP up}")
 			writeLog('Выровняли камеру')
 			Sleep(1000)
-			If ($_iskatCeli == 1) Then Send("{LEFT down}")
+			If ($_searchTarget == 1) Then Send("{LEFT down}")
 			Sleep(1000)
 			Send("{ц down}")
 			Sleep(1000)
@@ -343,75 +429,20 @@ Func start()
 			writeLog('Уменьшили миникарту')
 			Sleep(500)
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
+				;=== Скорость=0, возможно мы упёрлись
 				If (PixelGetColor(68, 602) == 0x817C54) Then
 					writeLog('Похоже мы упёрлись. Попробуем ещё немного поддать.')
 					Sleep(2000)
-				EndIf
-
-				If (PixelGetColor(68, 602) == 0x817C54) Then
-
-					writeLog("Да, мы упёрлись. Выполним объезд.")
-					Sleep(500)
-					Send("{ц up}")
-					Send("{w up}")
-					Sleep(500)
-					Send("{ы down}")
-					Send("{s down}")
-					Sleep(Random(3000, Random(4000, 6000)))
-					$direction = ""
-					If (Random(0, 100) > 50) Then
-						$direction = "right"
-						Send("{в down}")
-						Send("{d down}")
-						Sleep(Random(500, Random(1000, 3000)))
-						Send("{в up}")
-						Send("{d up}")
-					Else
-						$direction = "left"
-						Send("{ф down}")
-						Send("{a down}")
-						Sleep(Random(500, Random(1000, 3000)))
-						Send("{ф up}")
-						Send("{a up}")
-					EndIf
-					Sleep(Random(200, Random(300, 2000)))
-					Send("{ы up}")
-					Send("{s up}")
-					Sleep(Random(200, Random(300, 3000)))
-					Send("{ц down}")
-					Send("{w down}")
-					Sleep(Random(200, Random(300, 5000)))
-					If ($direction == "left") Then
-						Send("{в down}")
-						Send("{d down}")
-						Sleep(Random(500, Random(1000, 3000)))
-						Send("{в up}")
-						Send("{d up}")
-					Else
-						Send("{ф down}")
-						Send("{a down}")
-						Sleep(Random(500, Random(1000, 3000)))
-						Send("{ф up}")
-						Send("{a up}")
-					EndIf
-				Else
-					;=== Прямое движение
-					If Random(0, Random(0, 10000) < $_povorot) Then
-						If (Random(0, 100) > 50) Then
-							Send("{в down}")
-							Send("{d down}")
-							Sleep(Random(0, Random(100, 2000)))
-							Send("{в up}")
-							Send("{d up}")
-						Else
-							Send("{ф down}")
-							Send("{a down}")
-							Sleep(Random(0, Random(100, 2000)))
-							Send("{ф up}")
-							Send("{a up}")
-						EndIf
+					If (PixelGetColor(68, 602) == 0x817C54) Then
+						;=== Объезд препятствия во время прямого движения
+						writeLog("Да, мы упёрлись. Выполним объезд.")
+						doDetour()
 					EndIf
 				EndIf
+
+
+				;=== Поворот во время прямого движения
+				doTurn()
 
 				;==== Выравнивание прицела
 				If (Random(0, 10000) > 9980) Then
@@ -423,6 +454,7 @@ Func start()
 				;==== Поиск цели
 
 
+				;=== Ищем цель на экране
 				$coord = PixelSearch(0, 30, 1024, 530, $color, $dirt, 1)
 				If Not @error Then
 					$x = $coord[0]
@@ -434,10 +466,10 @@ Func start()
 						$y = $coord[1]
 						writeLog("Ого, какое жирное!")
 						writeLog("Перестали крутить башней")
-						If ($_iskatCeli == 1) Then Send("{LEFT up}")
+						If ($_searchTarget == 1) Then Send("{LEFT up}")
 						Sleep(100)
 
-						If ($_ostanovkaPriCeli == 1) Then
+						If ($_stopsOnTergetting == 1) Then
 							writeLog("Стоп машина!")
 							Send("{ц up}")
 							Send("{w up}")
@@ -445,13 +477,13 @@ Func start()
 
 
 						writeLog("Цель обнаружена! Наводимся..")
-						If (Random(0, 10000) > 5500) Then
-							;Send("{ENTER}")
-							;Sleep(100)
-							;Send("Вижу гада!", 1)
-							;Sleep(100)
-							;Send("{ENTER}")
-							;Sleep(100)
+						If (Random(0, 10000) > $_talks) Then
+							Send("{ENTER}")
+							Sleep(100)
+							Send("Вижу гада!", 1)
+							Sleep(100)
+							Send("{ENTER}")
+							Sleep(100)
 						EndIf
 
 						writeLog("Сейчас наведёмся...")
@@ -510,8 +542,8 @@ Func start()
 						If ($x <> -1) And ($y <> -1) Then
 							writeLog("Огонь!")
 							Sleep(100)
-							If ($_strelyat == 1) Then MouseClick("Left", 512, 384)
-							If (Random(0, Random(0, 10000)) < $_razgovor) Then
+							If ($_fires == 1) Then MouseClick("Left", 512, 384)
+							If (Random(0, Random(0, 10000)) < $_talks) Then
 								Send("{ENTER}")
 								Sleep(100)
 								Send("Получи гад!", 1)
@@ -522,7 +554,7 @@ Func start()
 							Sleep(200)
 						Else
 							writeLog("Эх, упустил...")
-							If (Random(0, Random(0, 10000)) < $_razgovor) Then
+							If (Random(0, Random(0, 10000)) < $_talks) Then
 								Send("{ENTER}")
 								Sleep(100)
 								Send("Ушёл..", 1)
@@ -535,19 +567,21 @@ Func start()
 						Send("{LSHIFT}", 0)
 						Sleep(500)
 
-						If ($_ostanovkaPriCeli == 1) Then
+						If ($_stopsOnTergetting == 1) Then
 							writeLog("Ладно, едем дальше")
 							Send("{ц down}")
 							Send("{w down}")
 						EndIf
 
 						Sleep(2000)
-						If ($_iskatCeli == 1) Then Send("{LEFT down}")
+						If ($_searchTarget == 1) Then Send("{LEFT down}")
 						Sleep(200)
+					Else
+						writeLog("Не, слишком мелкое. Ну его.")
 					EndIf
 				EndIf
 
-				If (Random(0, Random(0, 10000)) < $_razgovor) Then
+				If (Random(0, Random(0, 10000)) < $_talks) Then
 					If (Random(0, 10000) > 5000) Then
 						Send("{F5}")
 					Else
@@ -609,9 +643,16 @@ Func start()
 	Sleep(3000)
 EndFunc   ;==>start
 
-Func endpos()
-	writeLog("Остановили скрипт по требованию")
-	FileWrite("actions.log", GUICtrlRead($logs))
+Func gameStop()
+	writeLog("Игровой скрипт приостановлен")
+	FileWrite("actions.log", $_log)
+	MsgBox(4096, "WoTBoT", "История действий сохранена в файл actions.log", 10)
+	WinActivate("WoT-BoT")
+	mainGUI()
+EndFunc   ;==>gameStop
+
+Func closeApp()
+	FileWrite("actions.log", $_log)
 	MsgBox(4096, "WoTBoT", "История действий сохранена в файл actions.log", 10)
 	Exit
-EndFunc   ;==>endpos
+EndFunc   ;==>closeApp
