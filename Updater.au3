@@ -9,6 +9,7 @@ $DecompressCommand = ($Decompressor & " x -o+ " & $FileToDownload)
 $KillCommand = "tskill WoTBot -a"
 
 Updater()
+
 Func Updater()
   FileRecycle(@ScriptDir & "\" & $FileToDownload)
 	ProcessWaitClose($FileToUpdate) ;Wait for process to close before file will be available for replacement

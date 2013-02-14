@@ -6,76 +6,77 @@
 #include <WindowsConstants.au3>
 
 Opt("TrayMenuMode", 1)
-#Region ### START Koda GUI section ### Form=D:\Profiles\Admin\РњРѕРё РґРѕРєСѓРјРµРЅС‚С‹\WotBot\mainForm.kxf
+#region ### START Koda GUI section ### Form=D:\Profiles\Admin\Мои документы\WotBot\mainForm.kxf
 $Form1_1 = GUICreate("WoT-BoT", 629, 762, -1, -1)
 GUISetIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1)
-$Group6 = GUICtrlCreateGroup("Рћ РїСЂРѕРіСЂР°РјРјРµ", 8, 8, 617, 177)
+$Group6 = GUICtrlCreateGroup("О программе", 8, 8, 617, 177)
 $Icon1 = GUICtrlCreateIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1, 16, 24, 48, 48)
-$Label1 = GUICtrlCreateLabel("РџСЂРѕРіСЂР°РјРјР° РїСЂРµРґСЃС‚Р°РІР»СЏРµС‚ СЃРѕР±РѕР№ РїСЂРѕСЃС‚РµР№С€РёР№ РЅР°СЃС‚СЂР°РёРІР°РµРјС‹Р№ Р±РѕС‚ РґР»СЏ РёРіСЂС‹ WorldOfTanks.", 72, 56, 461, 17)
+$Label1 = GUICtrlCreateLabel("Программа представляет собой простейший настраиваемый бот для игры WorldOfTanks.", 72, 56, 461, 17)
 $Label2 = GUICtrlCreateLabel("WoT-BoT v0.32", 72, 32, 94, 17)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
-$Label3 = GUICtrlCreateLabel("Р’ РґР°РЅРЅРѕР№ РІРµСЂСЃРёРё Р±РѕС‚ СѓРјРµРµС‚ РґРІРёРіР°С‚СЊСЃСЏ РІРїРµСЂС‘Рґ, РїРѕРІРѕСЂР°С‡РёРІР°С‚СЊ, СЂР°Р·РІРѕСЂР°С‡РёРІР°С‚СЊСЃСЏ РёСЃРєР°С‚СЊ С†РµР»СЊ Рё СЃС‚СЂРµР»СЏС‚СЊ РїРѕ РЅРµР№.", 16, 72, 568, 17)
-$Label4 = GUICtrlCreateLabel("Р’С‹Р±РѕСЂ С‚Р°РЅРєРѕРІ РґР»СЏ Р±РѕСЏ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РёР· РІС‹Р±СЂР°РЅРЅС‹С… Р°РєС‚РёРІРЅС‹РјРё С‚Р°РЅРєРѕРІ РїРµСЂРІС‹С… РїСЏС‚Рё СЃР»РѕС‚РѕРІ.", 16, 88, 564, 17)
-$Label5 = GUICtrlCreateLabel("РЎР»РµРґСѓР№С‚Рµ РёРЅСЃС‚СЂСѓРєС†РёСЏРј РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕР№ СЂР°Р±РѕС‚С‹ Р±РѕС‚Р°. Р•СЃР»Рё С‡С‚Рѕ-С‚Рѕ РЅРµ С‚Р°Рє: bel_poprygun@pisem.net", 16, 112, 494, 17)
-$Label6 = GUICtrlCreateLabel("Р РїРѕРјРЅРёС‚Рµ: Р¶СѓР»СЊРЅРёС‡Р°С‚СЊ РЅРµ С…РѕСЂРѕС€Рѕ... РќРѕ РЅР° РІРѕР№РЅРµ РІСЃРµ СЃСЂРµРґСЃС‚РІР° С…РѕСЂРѕС€Рё! ;-)", 16, 128, 378, 17)
-$Label7 = GUICtrlCreateLabel("PS: РђРІС‚РѕСЂ РЅРµ РЅРµСЃС‘С‚ РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕСЃС‚Рё Р·Р° Р’Р°С€Рё РґРµР№СЃС‚РІРёСЏ РІ РёРіСЂРµ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Р±РѕС‚Р° Рё Р»СЋР±С‹Рµ РїРѕСЃР»РµРґСЃС‚РІРёСЏ.", 16, 160, 604, 20)
+$Label3 = GUICtrlCreateLabel("В данной версии бот умеет двигаться вперёд, поворачивать, разворачиваться искать цель и стрелять по ней.", 16, 72, 568, 17)
+$Label4 = GUICtrlCreateLabel("Выбор танков для боя осуществляется автоматически из выбранных активными танков первых пяти слотов.", 16, 88, 564, 17)
+$Label5 = GUICtrlCreateLabel("Следуйте инструкциям для корректной работы бота. Если что-то не так: bel_poprygun@pisem.net", 16, 112, 494, 17)
+$Label6 = GUICtrlCreateLabel("И помните: жульничать не хорошо... Но на войне все средства хороши! ;-)", 16, 128, 378, 17)
+$Label7 = GUICtrlCreateLabel("PS: Автор не несёт ответственности за Ваши действия в игре с использованием бота и любые последствия.", 16, 160, 604, 20)
 GUICtrlSetFont(-1, 8, 800, 2, "Trebuchet MS")
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group1 = GUICtrlCreateGroup("РќР°СЃС‚СЂРѕР№РєР° Р±РѕС‚Р°", 8, 200, 617, 393)
-$Group2 = GUICtrlCreateGroup("РЎР»РѕС‚ 1", 24, 376, 113, 57)
-$slot1 = GUICtrlCreateCheckbox("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 32, 400, 97, 17)
+$Group1 = GUICtrlCreateGroup("Настройка бота", 8, 200, 617, 393)
+$Group2 = GUICtrlCreateGroup("Слот 1", 24, 376, 113, 57)
+$slot1 = GUICtrlCreateCheckbox("Использовать", 32, 400, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group3 = GUICtrlCreateGroup("РЎР»РѕС‚ 2", 144, 376, 113, 57)
-$slot2 = GUICtrlCreateCheckbox("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 152, 400, 97, 17)
+$Group3 = GUICtrlCreateGroup("Слот 2", 144, 376, 113, 57)
+$slot2 = GUICtrlCreateCheckbox("Использовать", 152, 400, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group4 = GUICtrlCreateGroup("РЎР»РѕС‚ 3", 264, 376, 113, 57)
-$slot3 = GUICtrlCreateCheckbox("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 272, 400, 97, 17)
+$Group4 = GUICtrlCreateGroup("Слот 3", 264, 376, 113, 57)
+$slot3 = GUICtrlCreateCheckbox("Использовать", 272, 400, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group5 = GUICtrlCreateGroup("РЎР»РѕС‚ 4", 384, 376, 113, 57)
-$slot4 = GUICtrlCreateCheckbox("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 392, 400, 97, 17)
+$Group5 = GUICtrlCreateGroup("Слот 4", 384, 376, 113, 57)
+$slot4 = GUICtrlCreateCheckbox("Использовать", 392, 400, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group7 = GUICtrlCreateGroup("РЎР»РѕС‚ 5", 504, 376, 113, 57)
-$slot5 = GUICtrlCreateCheckbox("РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ", 512, 400, 97, 17)
+$Group7 = GUICtrlCreateGroup("Слот 5", 504, 376, 113, 57)
+$slot5 = GUICtrlCreateCheckbox("Использовать", 512, 400, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Label8 = GUICtrlCreateLabel("РџСЂРµРґРЅР°СЃС‚СЂРѕР№РєР° РёРіСЂС‹", 16, 224, 129, 17)
+$Label8 = GUICtrlCreateLabel("Преднастройка игры", 16, 224, 129, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$Tes = GUICtrlCreateLabel("Р‘РѕС‚ СЂР°Р±РѕС‚Р°РµС‚ СЃ Р·Р°РїСѓС‰РµРЅРЅС‹Рј Рё Р·Р°Р»РѕРіРёРЅРµРЅС‹Рј РїСЂРёР»РѕР¶РµРЅРёРµРј WoT Client. РљР»РёРµРЅС‚ РґРѕР»Р¶РµРЅ РІС‹РїРѕР»РЅСЏС‚СЊСЃСЏ РІ РѕРєРѕРЅРЅРѕРј", 16, 240, 568, 17)
-$Label9 = GUICtrlCreateLabel("СЂРµР¶РёРјРµ СЃ СЂР°Р·СЂРµС€РµРЅРёРµРј 1024x768. РџРµСЂРµРґ Р·Р°РїСѓСЃРєРѕРј Р±РѕС‚Р° РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹РїРѕР»РЅРёС‚СЊ РЅР°СЃС‚СЂРѕР№РєСѓ РєР»РёРµРЅС‚Р°: ", 16, 256, 519, 17)
-$Label10 = GUICtrlCreateLabel("+ РЎРґРµР»Р°С‚СЊ РїСЂРѕР·СЂР°С‡РЅС‹Рј 'РњР°СЂРєРµСЂ РѕСЂСѓРґРёСЏ' РІ 'РђСЂРєР°РґРЅРѕРј' Рё 'РЎРЅР°Р№РїРµСЂСЃРєРѕРј' СЂРµР¶РёРјР°С…", 16, 272, 405, 17)
-$Label11 = GUICtrlCreateLabel("+ Р’С‹РєР»СЋС‡РёС‚СЊ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ Р»СЋР±РѕР№ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЂР°Р·СЂСѓС€РµРЅРЅС‹С… С‚Р°РЅРєР°С…", 16, 288, 359, 17)
-$Label12 = GUICtrlCreateLabel("+ РљР°СЂС‚Р° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ СЃР°РјРѕРіРѕ РјР°Р»РµРЅСЊРєРѕРіРѕ СЂР°Р·РјРµСЂР°, СѓРїСЂР°РІР»РµРЅРёРµ - РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ", 16, 304, 408, 17)
-$Label13 = GUICtrlCreateLabel("Р’С‹Р±РѕСЂ С‚Р°РЅРєРѕРІ РґР»СЏ РёРіСЂС‹", 16, 352, 145, 17)
+$Tes = GUICtrlCreateLabel("Бот работает с запущенным и залогиненым приложением WoT Client. Клиент должен выполняться в оконном", 16, 240, 568, 17)
+$Label9 = GUICtrlCreateLabel("режиме с разрешением 1024x768. Перед запуском бота необходимо выполнить настройку клиента: ", 16, 256, 519, 17)
+$Label10 = GUICtrlCreateLabel("+ Сделать прозрачным 'Маркер орудия' в 'Аркадном' и 'Снайперском' режимах", 16, 272, 405, 17)
+$Label11 = GUICtrlCreateLabel("+ Выключить отображение любой информации о разрушенных танках", 16, 288, 359, 17)
+$Label12 = GUICtrlCreateLabel("+ Карта должна быть самого маленького размера, управление - по-умолчанию", 16, 304, 408, 17)
+$Label13 = GUICtrlCreateLabel("Выбор танков для игры", 16, 352, 145, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$Label14 = GUICtrlCreateLabel("+ РўР°РЅРєРё РґРѕР»Р¶РЅС‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЂРµРјРѕРЅС‚РёСЂРѕРІР°С‚СЊСЃСЏ Рё РїРѕРїРѕР»РЅСЏС‚СЊСЃСЏ СЃРЅР°СЂСЏРґР°РјРё, РЅРµ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РЎРђРЈ", 16, 320, 506, 17)
-$Label15 = GUICtrlCreateLabel("РќР°СЃС‚СЂРѕР№РєР° РґРІРёР¶РµРЅРёСЏ (РІРµСЂРѕСЏС‚РЅРѕСЃС‚Рё)", 16, 456, 217, 17)
+$Label14 = GUICtrlCreateLabel("+ Танки должны автоматически ремонтироваться и пополняться снарядами, не используйте САУ", 16, 320, 506, 17)
+$Label15 = GUICtrlCreateLabel("Настройка движения (вероятности)", 16, 456, 217, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
 $razgovor = GUICtrlCreateSlider(192, 480, 230, 17, 0)
-GUICtrlSetLimit(-1, 10000, 0)
-$Label16 = GUICtrlCreateLabel("Р Р°Р·РіРѕРІРѕСЂС‡РёРєРё", 16, 480, 75, 17)
-$Label17 = GUICtrlCreateLabel("РџРѕРІРѕСЂРѕС‚ РЅР° С…РѕРґСѓ", 16, 504, 87, 17)
+GUICtrlSetLimit(-1, 10, 0)
+GUICtrlSetData(-1, 2)
+$Label16 = GUICtrlCreateLabel("Разговорчики", 16, 480, 75, 17)
+$Label17 = GUICtrlCreateLabel("Поворот на ходу", 16, 504, 87, 17)
 $povorot = GUICtrlCreateSlider(192, 504, 230, 17, 0)
-GUICtrlSetLimit(-1, 10000, 0)
-GUICtrlSetData(-1, 5000)
-$Label18 = GUICtrlCreateLabel("РћСЃС‚Р°РЅРѕРІРєР°", 16, 528, 59, 17)
+GUICtrlSetLimit(-1, 10, 0)
+GUICtrlSetData(-1, 2)
+$Label18 = GUICtrlCreateLabel("Остановка", 16, 528, 59, 17)
 $ostanovka = GUICtrlCreateSlider(192, 528, 230, 17, 0)
-GUICtrlSetLimit(-1, 10000, 0)
-GUICtrlSetData(-1, 1000)
-$ostanovkaPriCeli = GUICtrlCreateCheckbox("РћСЃС‚Р°РЅРѕРІРєР° РїСЂРё РЅР°РІРµРґРµРЅРёРё", 280, 560, 153, 17)
+GUICtrlSetLimit(-1, 10, 0)
+GUICtrlSetData(-1, 2)
+$ostanovkaPriCeli = GUICtrlCreateCheckbox("Остановка при наведении", 280, 560, 153, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
-$iskatCeli = GUICtrlCreateCheckbox("РСЃРєР°С‚СЊ С†РµР»Рё", 16, 560, 97, 17)
+$iskatCeli = GUICtrlCreateCheckbox("Искать цели", 16, 560, 97, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
-$strelyat = GUICtrlCreateCheckbox("РЎС‚СЂРµР»СЏС‚СЊ РїРѕ С†РµР»СЏРј", 120, 560, 153, 17)
+$strelyat = GUICtrlCreateCheckbox("Стрелять по целям", 120, 560, 153, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
-$startButton = GUICtrlCreateButton("РЎРўРђР Рў!", 448, 488, 163, 25)
+$startButton = GUICtrlCreateButton("СТАРТ!", 448, 488, 163, 25)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
-$Label19 = GUICtrlCreateLabel("Р—Р°РїСѓСЃРє РІСЃРµРіРґР° РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ Р°РЅРіР°СЂР°!", 400, 464, 223, 17)
+$Label19 = GUICtrlCreateLabel("Запуск всегда начинается с ангара!", 400, 464, 223, 17)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
-$stopButton = GUICtrlCreateButton("РЎС‚РѕРї (END РЅР° РєР»Р°РІРёР°С‚СѓСЂРµ)", 448, 520, 163, 65)
+$stopButton = GUICtrlCreateButton("Стоп (END на клавиатуре)", 448, 520, 163, 65)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
 $povorot_p = GUICtrlCreateLabel("0", 120, 504, 50, 17)
 $Label23 = GUICtrlCreateLabel("%", 176, 504, 12, 17)
@@ -84,25 +85,25 @@ $Label25 = GUICtrlCreateLabel("%", 176, 480, 12, 17)
 $ostanovka_p = GUICtrlCreateLabel("0", 120, 528, 50, 17)
 $Label27 = GUICtrlCreateLabel("%", 176, 528, 12, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Group8 = GUICtrlCreateGroup("РЎС‚Р°С‚СѓСЃ СЂР°Р±РѕС‚С‹ Р±РѕС‚Р°", 9, 600, 615, 153)
-$logs = GUICtrlCreateEdit("", 16, 632, 601, 113, BitOR($ES_AUTOVSCROLL,$ES_READONLY,$ES_WANTRETURN,$WS_VSCROLL))
-$Label20 = GUICtrlCreateLabel("РСЃС‚РѕСЂРёСЏ РѕРїРµСЂР°С†РёР№", 17, 616, 114, 17)
+$Group8 = GUICtrlCreateGroup("Статус работы бота", 9, 600, 615, 153)
+$logs = GUICtrlCreateEdit("", 16, 632, 601, 113, BitOR($ES_AUTOVSCROLL, $ES_READONLY, $ES_WANTRETURN, $WS_VSCROLL))
+$Label20 = GUICtrlCreateLabel("История операций", 17, 616, 114, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$Label21 = GUICtrlCreateLabel("РўРµРєСѓС‰РёР№ СЃС‚Р°С‚СѓСЃ", 193, 616, 99, 17)
+$Label21 = GUICtrlCreateLabel("Текущий статус", 193, 616, 99, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$status = GUICtrlCreateLabel("РќРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј", 296, 616, 322, 17)
+$status = GUICtrlCreateLabel("Ничего не делаем", 296, 616, 322, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 TraySetIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1)
 TraySetClick("0")
-$MenuItem1 = TrayCreateItem("Рћ РїСЂРѕРіСЂР°РјРјРµ")
+$MenuItem1 = TrayCreateItem("О программе")
 GUISetState(@SW_SHOW)
-#EndRegion ### END Koda GUI section ###
+#endregion ### END Koda GUI section ###
 
 
 
-;============= Р“Р›РћР‘РђР›Р¬РќР«Р• РџР•Р Р•РњР•РќРќР«Р• =============
+;============= ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =============
 Dim $_slot[7][3];
-;====================== РРќРР¦РРђР›РР—РђР¦РРЇ ============
+;====================== ИНИЦИАЛИЗАЦИЯ ============
 
 $_slot[0][0] = 0
 $_slot[0][1] = 0
@@ -146,9 +147,9 @@ Local $margin = 20
 Local $margin2 = 10
 Local $tankIndex = 1
 Local $exePath = "C:\Games\World_of_Tanks\WoTLauncher.exe"
-Local $_razgovor = 0
-Local $_povorot = 5000
-Local $_ostanovka = 1000
+Local $_razgovor = 2
+Local $_povorot = 2
+Local $_ostanovka = 2
 
 Local $_iskatCeli = 1
 Local $_strelyat = 1
@@ -156,29 +157,29 @@ Local $_ostanovkaPriCeli = 1
 
 
 
-;=============== РћРЎРќРћР’РќРћР™ Р¦РРљР› ===================
+;=============== ОСНОВНОЙ ЦИКЛ ===================
 While 1
-  $nMsg = GUIGetMsg()
+	$nMsg = GUIGetMsg()
 	Switch $nMsg
 		Case $GUI_EVENT_CLOSE
 			Exit
 
 		Case $startButton
-			writeLog("Р—Р°РїСѓСЃРє Р±РѕС‚Р°")
+			writeLog("Запуск бота")
 			start()
 
 		Case $razgovor
-			$value = Round(GUICtrlRead($razgovor)/10000*100)
+			$value = Round(GUICtrlRead($razgovor) / 10000 * 100)
 			GUICtrlSetData($razgovor_p, $value)
 			$_razgovor = 10000 - $razgovor;
 
 		Case $povorot
-			$value = Round(GUICtrlRead($povorot)/10000*100)
+			$value = Round(GUICtrlRead($povorot) / 10000 * 100)
 			GUICtrlSetData($povorot_p, $value)
 			$_povorot = 10000 - $povorot;
 
 		Case $ostanovka
-			$value = Round(GUICtrlRead($ostanovka)/10000*100)
+			$value = Round(GUICtrlRead($ostanovka) / 10000 * 100)
 			GUICtrlSetData($ostanovka_p, $value)
 			$_ostanovka = 10000 - $ostanovka;
 
@@ -208,9 +209,9 @@ While 1
 	EndSwitch
 WEnd
 
-;=============== Р‘Р›РћРљ Р¤РЈРќРљР¦РР™=====================
+;=============== БЛОК ФУНКЦИЙ=====================
 
-;=== Р—Р°РїРёСЃСЊ Р»РѕРіР°
+;=== Запись лога
 Func writeLog($log)
 	If ($log <> "") Then
 		;$text = GUICtrlRead($logs)
@@ -220,7 +221,7 @@ Func writeLog($log)
 	EndIf
 EndFunc   ;==>writeLog
 
-;=== Р—Р°РїРёСЃСЊ Р·РЅР°С‡РµРЅРёР№ Р°РєС‚РёРІРЅРѕСЃС‚Рё СЃР»РѕС‚РѕРІ
+;=== Запись значений активности слотов
 Func setSlotsValue($nMsg)
 	$value = GUICtrlRead($nMsg)
 
@@ -228,76 +229,85 @@ Func setSlotsValue($nMsg)
 		Case $slot1
 			If ($value = $GUI_CHECKED) Then
 				$_slot[1][0] = 1
-				writeLog("РЎР»РѕС‚1 Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот1 активен")
 			Else
 				$_slot[1][0] = 0
-				writeLog("РЎР»РѕС‚1 РЅРµ Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот1 не активен")
 			EndIf
 		Case $slot2
 			If ($value = $GUI_CHECKED) Then
 				$_slot[2][0] = 1
-				writeLog("РЎР»РѕС‚2 Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот2 активен")
 			Else
 				$_slot[2][0] = 0
-				writeLog("РЎР»РѕС‚2 РЅРµ Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот2 не активен")
 			EndIf
 		Case $slot3
 			If ($value = $GUI_CHECKED) Then
 				$_slot[3][0] = 1
-				writeLog("РЎР»РѕС‚3 Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот3 активен")
 			Else
 				$_slot[3][0] = 0
-				writeLog("РЎР»РѕС‚3 РЅРµ Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот3 не активен")
 			EndIf
 		Case $slot4
 			If ($value = $GUI_CHECKED) Then
 				$_slot[4][0] = 1
-				writeLog("РЎР»РѕС‚4 Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот4 активен")
 			Else
 				$_slot[4][0] = 0
-				writeLog("РЎР»РѕС‚4 РЅРµ Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот4 не активен")
 			EndIf
 		Case $slot5
 			If ($value = $GUI_CHECKED) Then
 				$_slot[5][0] = 1
-				writeLog("РЎР»РѕС‚5 Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот5 активен")
 			Else
 				$_slot[5][0] = 0
-				writeLog("РЎР»РѕС‚5 РЅРµ Р°РєС‚РёРІРµРЅ")
+				writeLog("Слот5 не активен")
 			EndIf
 	EndSwitch
-EndFunc   ;==>setSlotsValue
+ EndFunc   ;==>setSlotsValue
 
-;=============== РћРЎРќРћР’РќРћР™ РР“Р РћР’РћР™ Р‘Р›РћРљ ===========
+
+;=============== ОСНОВНОЙ ИГРОВОЙ БЛОК ===========
 Func start()
 
 
-	writeLog('РС‰РµРј Р·Р°РїСѓС‰РµРЅРЅСѓСЋ РёРіСЂСѓ')
+	writeLog('Ищем запущенную игру')
 	Sleep(1000)
 	WinActivate("[TITLE:WoT Client]")
 
 
 	While WinActive("[TITLE:WoT Client]")
-		GUICtrlSetData($status, "Р Р°Р±РѕС‚Р° РІ Р°РЅРіР°СЂРµ", 1)
+		GUICtrlSetData($status, "Работа в ангаре", 1)
 
-		while (PixelGetColor(530, 489) == 0x100f0b)
-			writeLog("РћС‚РєСЂС‹С‚Рѕ РѕРєРЅРѕ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ. Р—Р°РєСЂРѕРµРј.")
+		While (PixelGetColor(530, 489) == 0x100f0b)
+			writeLog("Открыто окно результатов. Закроем.")
 			MouseClick("Left", 1006, 78)
 			Sleep(1000)
 		WEnd
 
+		Sleep(10000)
+		writeLog("Прокрутка до первых танков")
+		Sleep(1000)
+		MouseClick("Left", 110, 665, 10)
+		Sleep(1000)
+		MouseClick("Left", 110, 665, 10)
+		Sleep(1000)
+
 		If ($_slot[$tankIndex][0] == 1) Then
-			writeLog("РџСЂРѕР±СѓРµРј С‚Р°РЅРє в„–" & $tankIndex)
+			writeLog("Пробуем танк №" & $tankIndex)
 			MouseClick("Left", $_slot[$tankIndex][1], $_slot[$tankIndex][2], 3)
-			sleep(1000)
+			Sleep(2000)
 		Else
-			writeLog("РўР°РЅРє в„–" & $tankIndex & " РЅРµ СѓС‡Р°СЃС‚РІСѓРµС‚ РІ РёРіСЂРµ. РС‰РµРј РґР°Р»СЊС€Рµ.")
+			writeLog("Танк №" & $tankIndex & " не участвует в игре. Ищем дальше.")
 		EndIf
 		If (PixelGetColor(470, 38) == 0xDB2A22) And ($_slot[$tankIndex][0] == 1) Then
 
-			GUICtrlSetData($status, "Р‘РѕРµРІРѕР№ РїСЂРѕС†РµСЃСЃ", 1)
+			GUICtrlSetData($status, "Боевой процесс", 1)
 
-			writeLog("Р’С…РѕРґРёРј РІ Р±РѕР№")
+			writeLog("Входим в бой")
 			Sleep(1000)
 			MouseClick("primary", 470, 38)
 			Sleep(1000)
@@ -305,146 +315,146 @@ Func start()
 			Sleep(1000)
 			MouseClick("primary", 472, 37)
 
-			writeLog("РћР¶РёРґР°РЅРёРµ РЅР°С‡Р°Р»Р° РѕС‚СЃС‡С‘С‚Р°")
+			writeLog("Ожидание начала отсчёта")
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) <> 0xF4EFE8
 				Sleep(1000)
 			WEnd
 
-			writeLog("Р–РґС‘Рј РЅР°С‡Р°Р»Р° Р±РѕСЏ")
+			writeLog("Ждём начала боя")
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) = 0xF4EFE8
 				Sleep(1000)
 			WEnd
 
-			;Р‘РѕР№
-			writeLog("Р’РѕС€Р»Рё РІ Р±РѕР№")
+			;Бой
+			writeLog("Вошли в бой")
 			Send("{UP down}")
 			Sleep(500)
 			Send("{UP up}")
-			writeLog('Р’С‹СЂРѕРІРЅСЏР»Рё РєР°РјРµСЂСѓ')
+			writeLog('Выровняли камеру')
 			Sleep(1000)
-			if ($_iskatCeli == 1) then	Send("{LEFT down}")
+			If ($_iskatCeli == 1) Then Send("{LEFT down}")
 			Sleep(1000)
-			Send("{С† down}")
+			Send("{ц down}")
 			Sleep(1000)
 			Send("{w down}")
 			Sleep(5000)
 			Send("{-}", 0)
 			Sleep(500)
-			writeLog('РЈРјРµРЅСЊС€РёР»Рё РјРёРЅРёРєР°СЂС‚Сѓ')
+			writeLog('Уменьшили миникарту')
 			Sleep(500)
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
 				If (PixelGetColor(68, 602) == 0x817C54) Then
-					writeLog('РџРѕС…РѕР¶Рµ РјС‹ СѓРїС‘СЂР»РёСЃСЊ. РџРѕРїСЂРѕР±СѓРµРј РµС‰С‘ РЅРµРјРЅРѕРіРѕ РїРѕРґРґР°С‚СЊ.')
+					writeLog('Похоже мы упёрлись. Попробуем ещё немного поддать.')
 					Sleep(2000)
 				EndIf
 
 				If (PixelGetColor(68, 602) == 0x817C54) Then
 
-					writeLog("Р”Р°, РјС‹ СѓРїС‘СЂР»РёСЃСЊ. Р’С‹РїРѕР»РЅРёРј РѕР±СЉРµР·Рґ.")
+					writeLog("Да, мы упёрлись. Выполним объезд.")
 					Sleep(500)
-					Send("{С† up}")
+					Send("{ц up}")
 					Send("{w up}")
 					Sleep(500)
-					Send("{С‹ down}")
+					Send("{ы down}")
 					Send("{s down}")
 					Sleep(Random(3000, Random(4000, 6000)))
 					$direction = ""
 					If (Random(0, 100) > 50) Then
 						$direction = "right"
-						Send("{РІ down}")
+						Send("{в down}")
 						Send("{d down}")
 						Sleep(Random(500, Random(1000, 3000)))
-						Send("{РІ up}")
+						Send("{в up}")
 						Send("{d up}")
 					Else
 						$direction = "left"
-						Send("{С„ down}")
+						Send("{ф down}")
 						Send("{a down}")
 						Sleep(Random(500, Random(1000, 3000)))
-						Send("{С„ up}")
+						Send("{ф up}")
 						Send("{a up}")
 					EndIf
 					Sleep(Random(200, Random(300, 2000)))
-					Send("{С‹ up}")
+					Send("{ы up}")
 					Send("{s up}")
 					Sleep(Random(200, Random(300, 3000)))
-					Send("{С† down}")
+					Send("{ц down}")
 					Send("{w down}")
 					Sleep(Random(200, Random(300, 5000)))
 					If ($direction == "left") Then
-						Send("{РІ down}")
+						Send("{в down}")
 						Send("{d down}")
 						Sleep(Random(500, Random(1000, 3000)))
-						Send("{РІ up}")
+						Send("{в up}")
 						Send("{d up}")
 					Else
-						Send("{С„ down}")
+						Send("{ф down}")
 						Send("{a down}")
 						Sleep(Random(500, Random(1000, 3000)))
-						Send("{С„ up}")
+						Send("{ф up}")
 						Send("{a up}")
 					EndIf
 				Else
-					;=== РџСЂСЏРјРѕРµ РґРІРёР¶РµРЅРёРµ
+					;=== Прямое движение
 					If Random(0, Random(0, 10000) < $_povorot) Then
 						If (Random(0, 100) > 50) Then
-							Send("{РІ down}")
+							Send("{в down}")
 							Send("{d down}")
 							Sleep(Random(0, Random(100, 2000)))
-							Send("{РІ up}")
+							Send("{в up}")
 							Send("{d up}")
 						Else
-							Send("{С„ down}")
+							Send("{ф down}")
 							Send("{a down}")
 							Sleep(Random(0, Random(100, 2000)))
-							Send("{С„ up}")
+							Send("{ф up}")
 							Send("{a up}")
 						EndIf
 					EndIf
 				EndIf
 
-				;==== Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РїСЂРёС†РµР»Р°
+				;==== Выравнивание прицела
 				If (Random(0, 10000) > 9980) Then
 
-					writeLog("Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ РїСЂРёС†РµР»Р°")
+					writeLog("Выравнивание прицела")
 					Send("{HOME}")
 					Send("{UP 5}")
 				EndIf
-				;==== РџРѕРёСЃРє С†РµР»Рё
+				;==== Поиск цели
 
 
 				$coord = PixelSearch(0, 30, 1024, 530, $color, $dirt, 1)
 				If Not @error Then
 					$x = $coord[0]
 					$y = $coord[1]
-					writeLog("РќР°С€Р»Рё С‚Рѕ-С‚Рѕ РєСЂР°СЃРЅРѕРµ. РџСЂРѕРІРµСЂРёРј, РЅР°СЃРєРѕР»СЊРєРѕ РѕРЅРѕ РєСЂСѓРїРЅРѕРµ")
+					writeLog("Нашли то-то красное. Проверим, насколько оно крупное")
 					$coord = PixelSearch($x + 2, $y + 2, $x + 5, $y + 5, $color, $dirt, 1)
 					If Not @error Then
 						$x = $coord[0]
 						$y = $coord[1]
-						writeLog("РћРіРѕ, РєР°РєРѕРµ Р¶РёСЂРЅРѕРµ!")
-						writeLog("РџРµСЂРµСЃС‚Р°Р»Рё РєСЂСѓС‚РёС‚СЊ Р±Р°С€РЅРµР№")
-						if ($_iskatCeli == 1) then Send("{LEFT up}")
+						writeLog("Ого, какое жирное!")
+						writeLog("Перестали крутить башней")
+						If ($_iskatCeli == 1) Then Send("{LEFT up}")
 						Sleep(100)
 
-						if ($_ostanovkaPriCeli == 1) then
-							writeLog("РЎС‚РѕРї РјР°С€РёРЅР°!")
-							Send("{С† up}")
+						If ($_ostanovkaPriCeli == 1) Then
+							writeLog("Стоп машина!")
+							Send("{ц up}")
 							Send("{w up}")
 						EndIf
 
 
-						writeLog("Р¦РµР»СЊ РѕР±РЅР°СЂСѓР¶РµРЅР°! РќР°РІРѕРґРёРјСЃСЏ..")
+						writeLog("Цель обнаружена! Наводимся..")
 						If (Random(0, 10000) > 5500) Then
 							;Send("{ENTER}")
 							;Sleep(100)
-							;Send("Р’РёР¶Сѓ РіР°РґР°!", 1)
+							;Send("Вижу гада!", 1)
 							;Sleep(100)
 							;Send("{ENTER}")
 							;Sleep(100)
 						EndIf
 
-						writeLog("РЎРµР№С‡Р°СЃ РЅР°РІРµРґС‘РјСЃСЏ...")
+						writeLog("Сейчас наведёмся...")
 						While WinActive("[TITLE:WoT Client]") And (($x < 500 - $margin) Or ($x > 500 + $margin) Or ($y < 300 - $margin) Or ($y > 300 + $margin)) And (($x <> -1) And ($y <> -1)) And PixelGetColor(290, 723) <> 0xAE3F28
 							If ($x > 500) Then
 								Send("{RIGHT}")
@@ -471,7 +481,7 @@ Func start()
 
 						Send("{LSHIFT}", 0)
 						If (Not @error) Then
-							writeLog("Р“РѕС‚РѕРІРѕ. РўРµРїРµСЂСЊ С†РµР»РёРјСЃСЏ РІ СЃРЅР°Р№РїРµСЂРµ.")
+							writeLog("Готово. Теперь целимся в снайпере.")
 							Sleep(500)
 						EndIf
 
@@ -498,41 +508,41 @@ Func start()
 						WEnd
 
 						If ($x <> -1) And ($y <> -1) Then
-							writeLog("РћРіРѕРЅСЊ!")
+							writeLog("Огонь!")
 							Sleep(100)
-							if ($_strelyat == 1) then MouseClick("Left", 512, 384)
+							If ($_strelyat == 1) Then MouseClick("Left", 512, 384)
 							If (Random(0, Random(0, 10000)) < $_razgovor) Then
 								Send("{ENTER}")
 								Sleep(100)
-								Send("РџРѕР»СѓС‡Рё РіР°Рґ!", 1)
+								Send("Получи гад!", 1)
 								Sleep(100)
 								Send("{ENTER}")
 								Sleep(100)
 							EndIf
 							Sleep(200)
 						Else
-							writeLog("Р­С…, СѓРїСѓСЃС‚РёР»...")
+							writeLog("Эх, упустил...")
 							If (Random(0, Random(0, 10000)) < $_razgovor) Then
-									Send("{ENTER}")
-									Sleep(100)
-									Send("РЈС€С‘Р»..", 1)
-									Sleep(100)
-									Send("{ENTER}")
-									Sleep(100)
+								Send("{ENTER}")
+								Sleep(100)
+								Send("Ушёл..", 1)
+								Sleep(100)
+								Send("{ENTER}")
+								Sleep(100)
 							EndIf
 						EndIf
 
 						Send("{LSHIFT}", 0)
 						Sleep(500)
 
-						if ($_ostanovkaPriCeli == 1) then
-							writeLog("Р›Р°РґРЅРѕ, РµРґРµРј РґР°Р»СЊС€Рµ")
-							Send("{С† down}")
+						If ($_ostanovkaPriCeli == 1) Then
+							writeLog("Ладно, едем дальше")
+							Send("{ц down}")
 							Send("{w down}")
 						EndIf
 
 						Sleep(2000)
-						if ($_iskatCeli == 1) then Send("{LEFT down}")
+						If ($_iskatCeli == 1) Then Send("{LEFT down}")
 						Sleep(200)
 					EndIf
 				EndIf
@@ -546,18 +556,18 @@ Func start()
 				EndIf
 			WEnd
 
-			writeLog("Р’С‹С€Р»Рё РёР· Р±РѕСЏ")
-			Send("{С† up}")
+			writeLog("Вышли из боя")
+			Send("{ц up}")
 			Send("{w up}")
 			Sleep(3000)
 
 
 			If WinActive("[TITLE:WoT Client]") And PixelGetColor(290, 723) == 0xAE3F28 Then
 
-				writeLog("РќР°СЃ СѓР±РёР»Рё. РџРµС‡Р°Р»СЊРєР°.")
+				writeLog("Нас убили. Печалька.")
 				Sleep(3000)
 
-				writeLog("Р’С‹С…РѕРґРёРј РІ Р°РЅРіР°СЂ")
+				writeLog("Выходим в ангар")
 				Sleep(1000)
 
 				Send("{ESC}")
@@ -569,12 +579,15 @@ Func start()
 				Sleep(1000)
 			EndIf
 		Else
-			writeLog("РџСЂРѕРєСЂСѓС‚РєР° РґРѕ РїРµСЂРІС‹С… С‚Р°РЅРєРѕРІ")
+			Sleep(10000)
+			writeLog("Прокрутка до первых танков")
+			Sleep(1000)
+			MouseClick("Left", 110, 665, 10)
 			Sleep(1000)
 			MouseClick("Left", 110, 665, 10)
 			Sleep(1000)
 
-			writeLog("РС‰РµРј Р°РєС‚РёРІРЅС‹Р№ С‚Р°РЅРє РІ Р°РЅРіР°СЂРµ.")
+			writeLog("Ищем активный танк в ангаре.")
 
 			If ($_slot[$tankIndex][0] == 0) Then
 				$tankIndex = $tankIndex + 1
@@ -584,7 +597,7 @@ Func start()
 
 			Sleep(1000)
 			If (PixelGetColor(470, 38) <> 0xDB2A22) And ($_slot[$tankIndex][0] == 1) Then
-				writeLog("РўР°РЅРє РЅРµ РјРѕР¶РµС‚ РёРіСЂР°С‚СЊ. РС‰РµРј РґР°Р»СЊС€Рµ.")
+				writeLog("Танк не может играть. Ищем дальше.")
 				$tankIndex = $tankIndex + 1
 			EndIf
 
@@ -592,13 +605,13 @@ Func start()
 		EndIf
 	WEnd
 
-	writeLog("РЎРєСЂРёРїС‚ Р·Р°РІРµСЂС€С‘РЅ.")
+	writeLog("Скрипт завершён.")
 	Sleep(3000)
 EndFunc   ;==>start
 
 Func endpos()
-	writeLog("РћСЃС‚Р°РЅРѕРІРёР»Рё СЃРєСЂРёРїС‚ РїРѕ С‚СЂРµР±РѕРІР°РЅРёСЋ")
-	FileWrite ( "actions.log", GUICtrlRead($logs))
-	MsgBox(4096, "WoTBoT", "РСЃС‚РѕСЂРёСЏ РґРµР№СЃС‚РІРёР№ СЃРѕС…СЂР°РЅРµРЅР° РІ С„Р°Р№Р» actions.log", 10)
+	writeLog("Остановили скрипт по требованию")
+	FileWrite("actions.log", GUICtrlRead($logs))
+	MsgBox(4096, "WoTBoT", "История действий сохранена в файл actions.log", 10)
 	Exit
 EndFunc   ;==>endpos
