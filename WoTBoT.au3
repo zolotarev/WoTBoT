@@ -280,6 +280,7 @@ EndFunc   ;==>setSlotsValue
 
 
 ;=== Вероятность поворота во время прямого движения
+;=== Два условия для исключения значения 50, иначе перевес в одну сторону
 Func doTurn()
 	If Random(0, Random(0, 10000) < $_turns) Then
 		If (Random(0, 100) > 50) Then
@@ -288,7 +289,8 @@ Func doTurn()
 			Sleep(Random(0, Random(100, 2000)))
 			Send("{в up}")
 			Send("{d up}")
-		Else
+		EndIf
+		If (Random(0, 100) < 50) Then
 			Send("{ф down}")
 			Send("{a down}")
 			Sleep(Random(0, Random(100, 2000)))
@@ -429,21 +431,6 @@ Func start()
 			writeLog('Уменьшили миникарту')
 			Sleep(500)
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
-				;=== Скорость=0, возможно мы упёрлись
-				If (PixelGetColor(68, 602) == 0x817C54) Then
-					writeLog('Похоже мы упёрлись. Попробуем ещё немного поддать.')
-					Sleep(2000)
-					If (PixelGetColor(68, 602) == 0x817C54) Then
-						;=== Объезд препятствия во время прямого движения
-						writeLog("Да, мы упёрлись. Выполним объезд.")
-						doDetour()
-					EndIf
-				EndIf
-
-
-				;=== Поворот во время прямого движения
-				doTurn()
-
 				;==== Выравнивание прицела
 				If (Random(0, 10000) > 9980) Then
 
@@ -581,6 +568,23 @@ Func start()
 					EndIf
 				EndIf
 
+				;=== Скорость=0, возможно мы упёрлись
+				If (PixelGetColor(68, 602) == 0x817C54) Then
+					writeLog('Похоже мы упёрлись. Попробуем ещё немного поддать.')
+					Sleep(2000)
+					If (PixelGetColor(68, 602) == 0x817C54) Then
+						;=== Объезд препятствия во время прямого движения
+						writeLog("Да, мы упёрлись. Выполним объезд.")
+						doDetour()
+					EndIf
+				EndIf
+
+
+				;=== Поворот во время прямого движения
+				doTurn()
+
+
+				;=== Отправка команде типовых сообщений
 				If (Random(0, Random(0, 10000)) < $_talks) Then
 					If (Random(0, 10000) > 5000) Then
 						Send("{F5}")
