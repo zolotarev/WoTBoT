@@ -364,7 +364,7 @@ Func start()
 		While (PixelGetColor(472, 613) == 0x9C1620)
 			writeLog("О, форма входа. Заходим.")
 			WinActivate("[TITLE:WoT Client]")
-			MouseClick("Left", 1006, 78)
+			MouseClick("Left", 472, 613)
 			Sleep(1000)
 		WEnd
 
