@@ -54,18 +54,23 @@ GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
 $Label14 = GUICtrlCreateLabel("+ Танки должны автоматически ремонтироваться и пополняться снарядами, не используйте САУ", 16, 320, 506, 17)
 $Label15 = GUICtrlCreateLabel("Настройка движения (вероятности)", 16, 456, 217, 17)
 GUICtrlSetFont(-1, 8, 800, 4, "MS Sans Serif")
-$talks_editor = GUICtrlCreateSlider(192, 480, 230, 17, 0)
-GUICtrlSetLimit(-1, 10, 0)
-GUICtrlSetData(-1, 2)
+
 $Label16 = GUICtrlCreateLabel("Разговорчики", 16, 480, 75, 17)
+$talks_editor = GUICtrlCreateSlider(192, 480, 230, 17, 0)
+GUICtrlSetLimit($talks_editor, 10, 0)
+GUICtrlSetData($talks_editor, 0)
+
+
 $Label17 = GUICtrlCreateLabel("Поворот на ходу", 16, 504, 87, 17)
 $turns_editor = GUICtrlCreateSlider(192, 504, 230, 17, 0)
-GUICtrlSetLimit(-1, 10, 0)
-GUICtrlSetData(-1, 2)
+GUICtrlSetLimit($turns_editor, 10, 0)
+GUICtrlSetData($turns_editor, 2)
+
 $Label18 = GUICtrlCreateLabel("Остановка", 16, 528, 59, 17)
 $ostanovka = GUICtrlCreateSlider(192, 528, 230, 17, 0)
-GUICtrlSetLimit(-1, 10, 0)
-GUICtrlSetData(-1, 2)
+GUICtrlSetLimit($ostanovka, 10, 0)
+GUICtrlSetData($ostanovka, 2)
+
 $ostanovkaPriCeli = GUICtrlCreateCheckbox("Остановка при наведении", 280, 560, 153, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 $iskatCeli = GUICtrlCreateCheckbox("Искать цели", 16, 560, 97, 17)
@@ -76,7 +81,7 @@ $startButton = GUICtrlCreateButton("СТАРТ!", 448, 488, 163, 25)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
 $Label19 = GUICtrlCreateLabel("Запуск всегда начинается с ангара!", 400, 464, 223, 17)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
-$stopButton = GUICtrlCreateButton("Стоп (END на клавиатуре)", 448, 520, 163, 65)
+$updateButton = GUICtrlCreateButton("Проверить обновления", 448, 520, 163, 65)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
 $turns_editor_p = GUICtrlCreateLabel("0", 120, 504, 50, 17)
 $Label23 = GUICtrlCreateLabel("%", 176, 504, 12, 17)
@@ -146,7 +151,7 @@ Global $margin = 20
 Global $margin2 = 10
 Global $tankIndex = 1
 Global $exePath = "C:\Games\World_of_Tanks\WoTLauncher.exe"
-Global $_talks = 2
+Global $_talks = 0
 Global $_turns = 2
 Global $_stops = 2
 
@@ -171,20 +176,24 @@ Func mainGUI()
 				writeLog("Запуск бота")
 				start()
 
+			Case $updateButton
+				writeLog("Проверка обновлений")
+				checkUpdate()
+
 			Case $talks_editor
-				$value = Round(GUICtrlRead($talks_editor) / 10000 * 100)
+				$value = GUICtrlRead($talks_editor)
 				GUICtrlSetData($talks_editor_p, $value)
-				$_talks = 10000 - $talks_editor;
+				$_talks = $talks_editor;
 
 			Case $turns_editor
-				$value = Round(GUICtrlRead($turns_editor) / 10000 * 100)
+				$value = GUICtrlRead($turns_editor)
 				GUICtrlSetData($turns_editor_p, $value)
-				$_turns = 10000 - $turns_editor;
+				$_turns = $turns_editor;
 
 			Case $ostanovka
-				$value = Round(GUICtrlRead($ostanovka) / 10000 * 100)
+				$value = GUICtrlRead($ostanovka)
 				GUICtrlSetData($ostanovka_p, $value)
-				$_stops = 10000 - $ostanovka;
+				$_stops = $ostanovka;
 
 			Case $ostanovkaPriCeli
 				If (GUICtrlRead($nMsg) = $GUI_CHECKED) Then
@@ -229,6 +238,21 @@ Func writeLog($log)
 		$_log = $_log & @CRLF & $log
 	EndIf
 EndFunc   ;==>writeLog
+
+Func checkUpdate()
+	$FileToUpdate = "WoTBoT.exe";
+	$FileToDownload = "WoTBoT.exe";
+	$FileDownloadURL = "http://sd.its.bz/wot/"
+	$FileToReplace = (@ScriptDir & "\" & $FileToUpdate)
+	$FileSize = InetGetSize($FileDownloadURL & $FileToDownload, 1)
+	$LocalFileSize = FileGetSize(@ScriptDir & "\" & $FileToUpdate)
+	If ($FileSize <> 0) And ($LocalFileSize <> $FileSize) Then
+		Run(@ScriptDir & "\updater.exe")
+		Exit
+	Else
+		MsgBox(0, "WoTBoT", "Обновлений нет", 5);
+	EndIf
+EndFunc   ;==>checkUpdate
 
 ;=== Запись значений активности слотов
 Func setSlotsValue($nMsg)
@@ -431,6 +455,7 @@ Func start()
 			writeLog('Уменьшили миникарту')
 			Sleep(500)
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
+				Local $begin = TimerInit()
 				;==== Выравнивание прицела
 				If (Random(0, 10000) > 9980) Then
 
@@ -579,6 +604,15 @@ Func start()
 					EndIf
 				EndIf
 
+				;=== Отключение, перезапуск сервера, обрыв связи...
+				If (PixelGetColor(640, 439) == 0xA7A399) Then
+					writeLog('Похоже порвалась связь.')
+					Sleep(100)
+					MouseClick("left", 640, 439, 2, 100)
+					Sleep(3000)
+					ExitLoop
+				EndIf
+
 
 				;=== Поворот во время прямого движения
 				doTurn()
@@ -592,6 +626,9 @@ Func start()
 						Send("{F4}")
 					EndIf
 				EndIf
+
+				Local $dif = TimerDiff($begin)
+				writeLog("Time Difference = " &  $dif)
 			WEnd
 
 			writeLog("Вышли из боя")
