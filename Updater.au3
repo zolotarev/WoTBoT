@@ -1,4 +1,4 @@
-#include <ProgressConstants.au3>
+﻿#include <ProgressConstants.au3>
 
 $FileToUpdate = "WoTBoT.exe"
 $FileToDownload = "WoTBoT.exe"
