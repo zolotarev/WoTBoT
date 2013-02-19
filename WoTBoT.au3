@@ -174,6 +174,7 @@ Func mainGUI()
 
 			Case $startButton
 				writeLog("Запуск бота")
+				HotKeySet("{END}", "gameStop")
 				start()
 
 			Case $updateButton
@@ -370,6 +371,19 @@ Func doDetour()
 	EndIf
 EndFunc   ;==>doDetour
 
+;=== Отключение, перезапуск сервера, обрыв связи...
+Func checkOffline()
+	If (PixelGetColor(640, 439) == 0xA7A399) Then
+		writeLog('Похоже порвалась связь.')
+		Sleep(100)
+		MouseClick("left", 640, 439, 2, 100)
+		Sleep(3000)
+		Return True
+	Else
+		Return False
+	EndIf
+EndFunc   ;==>checkOffline
+
 ;=============== ОСНОВНОЙ ИГРОВОЙ БЛОК ===========
 Func start()
 	writeLog('Ищем запущенную игру')
@@ -385,14 +399,17 @@ Func start()
 
 
 	While WinActive("[TITLE:WoT Client]")
-		While (PixelGetColor(472, 613) == 0x9C1620)
-			writeLog("О, форма входа. Заходим.")
-			WinActivate("[TITLE:WoT Client]")
-			MouseClick("Left", 472, 613)
-			Sleep(1000)
-		WEnd
 
-		GUICtrlSetData($status, "Работа в ангаре", 1)
+		;=== Отключение, перезапуск сервера, обрыв связи...
+		If checkOffline() Then
+			While (PixelGetColor(472, 613) == 0x9C1620)
+				writeLog("О, форма входа. Заходим.")
+				WinActivate("[TITLE:WoT Client]")
+				MouseClick("Left", 472, 613)
+				Sleep(1000)
+				GUICtrlSetData($status, "Работа в ангаре", 1)
+			WEnd
+		EndIf
 
 		While (PixelGetColor(530, 489) == 0x100f0b)
 			writeLog("Открыто окно результатов. Закроем.")
@@ -465,7 +482,6 @@ Func start()
 				EndIf
 				;==== Поиск цели
 
-
 				;=== Ищем цель на экране
 				$coord = PixelSearch(0, 30, 1024, 530, $color, $dirt, 1)
 				If Not @error Then
@@ -489,7 +505,7 @@ Func start()
 
 
 						writeLog("Цель обнаружена! Наводимся..")
-						If (Random(0, 10000) > $_talks) Then
+						If (Random(0, Random(0, 10000)) < $_talks) Then
 							Send("{ENTER}")
 							Sleep(100)
 							Send("Вижу гада!", 1)
@@ -596,23 +612,14 @@ Func start()
 				;=== Скорость=0, возможно мы упёрлись
 				If (PixelGetColor(68, 602) == 0x817C54) Then
 					writeLog('Похоже мы упёрлись. Попробуем ещё немного поддать.')
+					doTurn()
 					Sleep(2000)
 					If (PixelGetColor(68, 602) == 0x817C54) Then
 						;=== Объезд препятствия во время прямого движения
-						writeLog("Да, мы упёрлись. Выполним объезд.")
+						writeLog("Да, мы упёрлись. Выполняем объезд.")
 						doDetour()
 					EndIf
 				EndIf
-
-				;=== Отключение, перезапуск сервера, обрыв связи...
-				If (PixelGetColor(640, 439) == 0xA7A399) Then
-					writeLog('Похоже порвалась связь.')
-					Sleep(100)
-					MouseClick("left", 640, 439, 2, 100)
-					Sleep(3000)
-					ExitLoop
-				EndIf
-
 
 				;=== Поворот во время прямого движения
 				doTurn()
@@ -627,8 +634,13 @@ Func start()
 					EndIf
 				EndIf
 
+				;=== Отключение, перезапуск сервера, обрыв связи...
+				If checkOffline() Then
+					ExitLoop
+				EndIf
+
 				Local $dif = TimerDiff($begin)
-				writeLog("Time Difference = " &  $dif)
+				;writeLog("Time Difference = " & $dif)
 			WEnd
 
 			writeLog("Вышли из боя")
@@ -684,10 +696,14 @@ Func start()
 	Sleep(3000)
 EndFunc   ;==>start
 
+Func nope()
+EndFunc   ;==>nope
+
 Func gameStop()
 	writeLog("Игровой скрипт приостановлен")
 	FileWrite("actions.log", $_log)
 	MsgBox(4096, "WoTBoT", "История действий сохранена в файл actions.log", 10)
+	HotKeySet("{END}", "nope")
 	WinActivate("WoT-BoT")
 	mainGUI()
 EndFunc   ;==>gameStop
