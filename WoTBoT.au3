@@ -241,6 +241,7 @@ Func writeLog($log)
 EndFunc   ;==>writeLog
 
 Func checkUpdate()
+	writeLog("Проверка обновлений..")
 	$FileToUpdate = "WoTBoT.exe";
 	$FileToDownload = "WoTBoT.exe";
 	$FileDownloadURL = "http://sd.its.bz/wot/"
@@ -248,10 +249,11 @@ Func checkUpdate()
 	$FileSize = InetGetSize($FileDownloadURL & $FileToDownload, 1)
 	$LocalFileSize = FileGetSize(@ScriptDir & "\" & $FileToUpdate)
 	If ($FileSize <> 0) And ($LocalFileSize <> $FileSize) Then
+		writeLog("Обнаружено обновление. Обновляемся..")
 		Run(@ScriptDir & "\updater.exe")
 		Exit
 	Else
-		MsgBox(0, "WoTBoT", "Обновлений нет", 5);
+		writeLog("Обновлений нет");
 	EndIf
 EndFunc   ;==>checkUpdate
 
@@ -309,14 +311,14 @@ EndFunc   ;==>setSlotsValue
 Func doTurn()
 
 	If Random(0, Random(0, 10000) < $_turns) Then
-		Local rndm = Random(0, 100)
-		If (rndm > 50) Then
+		Local $rndm = Random(0, 100)
+		If ($rndm > 50) Then
 			Send("{в down}")
 			Send("{d down}")
 			Sleep(Random(0, Random(100, 2000)))
 			Send("{в up}")
 			Send("{d up}")
-		ElseIf (rndm < 50) Then
+		ElseIf ($rndm < 50) Then
 			Send("{ф down}")
 			Send("{a down}")
 			Sleep(Random(0, Random(100, 2000)))
@@ -385,6 +387,23 @@ Func checkOffline()
 	EndIf
 EndFunc   ;==>checkOffline
 
+Func checkLogin()
+	If (PixelGetColor(472, 613) == 0x9C1620) Then
+		writeLog("О, форма входа. Заходим.")
+		WinActivate("[TITLE:WoT Client]")
+		MouseClick("Left", 472, 613)
+		Sleep(5000)
+	EndIf
+EndFunc   ;==>checkLogin
+
+Func checkResultWindowOpened()
+	If (PixelGetColor(530, 489) == 0x100f0b) Then
+		writeLog("Открыто окно результатов. Закроем.")
+		MouseClick("Left", 1006, 78)
+		Sleep(2000)
+	EndIf
+EndFunc   ;==>checkResultWindowOpened
+
 ;=============== ОСНОВНОЙ ИГРОВОЙ БЛОК ===========
 Func start()
 	writeLog('Ищем запущенную игру')
@@ -398,25 +417,14 @@ Func start()
 		mainGUI()
 	EndIf
 
-
 	While WinActive("[TITLE:WoT Client]")
 
 		;=== Отключение, перезапуск сервера, обрыв связи...
 		If checkOffline() Then
-			While (PixelGetColor(472, 613) == 0x9C1620)
-				writeLog("О, форма входа. Заходим.")
-				WinActivate("[TITLE:WoT Client]")
-				MouseClick("Left", 472, 613)
-				Sleep(1000)
-				GUICtrlSetData($status, "Работа в ангаре", 1)
-			WEnd
+			checkLogin()
 		EndIf
 
-		While (PixelGetColor(530, 489) == 0x100f0b)
-			writeLog("Открыто окно результатов. Закроем.")
-			MouseClick("Left", 1006, 78)
-			Sleep(1000)
-		WEnd
+		checkResultWindowOpened()
 
 		Sleep(10000)
 		writeLog("Прокрутка до первых танков")
@@ -434,6 +442,9 @@ Func start()
 			writeLog("Танк №" & $tankIndex & " не участвует в игре. Ищем дальше.")
 		EndIf
 		If (PixelGetColor(470, 38) == 0xDB2A22) And ($_slot[$tankIndex][0] == 1) Then
+
+			;=== Проверим обновления бота перед входом в бой
+			checkUpdate()
 
 			GUICtrlSetData($status, "Боевой процесс", 1)
 
@@ -474,6 +485,12 @@ Func start()
 			Sleep(500)
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
 				Local $begin = TimerInit()
+
+				If checkOffline() Then
+					checkLogin()
+					ExitLoop
+				EndIf
+
 				;==== Выравнивание прицела
 				If (Random(0, 10000) > 9980) Then
 
