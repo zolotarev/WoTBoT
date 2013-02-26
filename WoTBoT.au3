@@ -307,15 +307,16 @@ EndFunc   ;==>setSlotsValue
 ;=== Вероятность поворота во время прямого движения
 ;=== Два условия для исключения значения 50, иначе перевес в одну сторону
 Func doTurn()
+
 	If Random(0, Random(0, 10000) < $_turns) Then
-		If (Random(0, 100) > 50) Then
+		Local rndm = Random(0, 100)
+		If (rndm > 50) Then
 			Send("{в down}")
 			Send("{d down}")
 			Sleep(Random(0, Random(100, 2000)))
 			Send("{в up}")
 			Send("{d up}")
-		EndIf
-		If (Random(0, 100) < 50) Then
+		ElseIf (rndm < 50) Then
 			Send("{ф down}")
 			Send("{a down}")
 			Sleep(Random(0, Random(100, 2000)))
