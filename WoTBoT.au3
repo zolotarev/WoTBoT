@@ -393,6 +393,9 @@ Func checkLogin()
 		WinActivate("[TITLE:WoT Client]")
 		MouseClick("Left", 472, 613)
 		Sleep(5000)
+		Return True
+	Else
+		Return False
 	EndIf
 EndFunc   ;==>checkLogin
 
@@ -418,6 +421,9 @@ Func start()
 	EndIf
 
 	While WinActive("[TITLE:WoT Client]")
+
+		;=== Форма входа
+		checkLogin()
 
 		;=== Отключение, перезапуск сервера, обрыв связи...
 		If checkOffline() Then
@@ -486,9 +492,12 @@ Func start()
 			While WinActive("[TITLE:WoT Client]") And PixelGetColor(697, 98) <> 0x8A8970 And PixelGetColor(290, 723) <> 0xAE3F28 And PixelGetColor(59, 666) <> 0xDFDECF And PixelGetColor(470, 38) <> 0xDB2A22
 				Local $begin = TimerInit()
 
+				;=== Форма входа
+				If checkLogin() Then ExitLoop
+
+				;=== Отключение, перезапуск сервера, обрыв связи...
 				If checkOffline() Then
-					checkLogin()
-					ExitLoop
+					If checkLogin() Then ExitLoop
 				EndIf
 
 				;==== Выравнивание прицела
