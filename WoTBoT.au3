@@ -283,14 +283,14 @@ EndFunc   ;==>setSlotsValue
 ;=== Два условия для исключения значения 50, иначе перевес в одну сторону
 Func doTurn()
 	If Random(0, Random(0, 10000) < $_turns) Then
-		If (Random(0, 100) > 50) Then
+		Local rndm = Random(0, 100)
+		If (rndm > 50) Then
 			Send("{в down}")
 			Send("{d down}")
 			Sleep(Random(0, Random(100, 2000)))
 			Send("{в up}")
 			Send("{d up}")
-		EndIf
-		If (Random(0, 100) < 50) Then
+		ElseIf (rndm < 50) Then
 			Send("{ф down}")
 			Send("{a down}")
 			Sleep(Random(0, Random(100, 2000)))
@@ -346,6 +346,23 @@ Func doDetour()
 	EndIf
 EndFunc   ;==>doDetour
 
+Func checkLogin()
+	If (PixelGetColor(472, 613) == 0x9C1620) Then
+		writeLog("О, форма входа. Заходим.")
+		WinActivate("[TITLE:WoT Client]")
+		MouseClick("Left", 472, 613)
+		Sleep(5000)
+	EndIf
+EndFunc   ;==>doLogin
+
+Func checkResultWindowOpened()
+	if (PixelGetColor(530, 489) == 0x100f0b) then
+		writeLog("Открыто окно результатов. Закроем.")
+		MouseClick("Left", 1006, 78)
+		Sleep(2000)
+	EndIf
+EndFunc
+
 ;=============== ОСНОВНОЙ ИГРОВОЙ БЛОК ===========
 Func start()
 	writeLog('Ищем запущенную игру')
@@ -361,20 +378,12 @@ Func start()
 
 
 	While WinActive("[TITLE:WoT Client]")
-		While (PixelGetColor(472, 613) == 0x9C1620)
-			writeLog("О, форма входа. Заходим.")
-			WinActivate("[TITLE:WoT Client]")
-			MouseClick("Left", 472, 613)
-			Sleep(1000)
-		WEnd
+
+		checkLogin()
 
 		GUICtrlSetData($status, "Работа в ангаре", 1)
 
-		While (PixelGetColor(530, 489) == 0x100f0b)
-			writeLog("Открыто окно результатов. Закроем.")
-			MouseClick("Left", 1006, 78)
-			Sleep(1000)
-		WEnd
+		checkResultWindowOpened()
 
 		Sleep(10000)
 		writeLog("Прокрутка до первых танков")
@@ -396,7 +405,6 @@ Func start()
 			GUICtrlSetData($status, "Боевой процесс", 1)
 
 			writeLog("Входим в бой")
-			Sleep(1000)
 			MouseClick("primary", 470, 38)
 			Sleep(1000)
 			MouseClick("primary", 471, 39)
