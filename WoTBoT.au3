@@ -12,7 +12,7 @@ GUISetIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1)
 $Group6 = GUICtrlCreateGroup("О программе", 8, 8, 617, 177)
 $Icon1 = GUICtrlCreateIcon("F:\Games\World_of_Tanks\WorldOfTanks.exe", -1, 16, 24, 48, 48)
 $Label1 = GUICtrlCreateLabel("Программа представляет собой простейший настраиваемый бот для игры WorldOfTanks.", 72, 56, 461, 17)
-$Label2 = GUICtrlCreateLabel("WoT-BoT v0.32", 72, 32, 94, 17)
+$Label2 = GUICtrlCreateLabel("WoT-BoT v0.33", 72, 32, 94, 17)
 GUICtrlSetFont(-1, 8, 800, 0, "MS Sans Serif")
 $Label3 = GUICtrlCreateLabel("В данной версии бот умеет двигаться вперёд, поворачивать, разворачиваться искать цель и стрелять по ней.", 16, 72, 568, 17)
 $Label4 = GUICtrlCreateLabel("Выбор танков для боя осуществляется автоматически из выбранных активными танков первых пяти слотов.", 16, 88, 564, 17)
@@ -443,7 +443,7 @@ Func start()
 		If ($_slot[$tankIndex][0] == 1) Then
 			writeLog("Пробуем танк №" & $tankIndex)
 			MouseClick("Left", $_slot[$tankIndex][1], $_slot[$tankIndex][2], 3)
-			Sleep(2000)
+			Sleep(1000)
 		Else
 			writeLog("Танк №" & $tankIndex & " не участвует в игре. Ищем дальше.")
 		EndIf
@@ -463,14 +463,16 @@ Func start()
 			MouseClick("primary", 472, 37)
 
 			writeLog("Ожидание начала отсчёта")
-			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) <> 0xF4EFE8
+			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) <> 0xF4EFE8 And Not checkOffline()
 				Sleep(1000)
 			WEnd
+			If checkLogin() Then ContinueLoop
 
 			writeLog("Ждём начала боя")
-			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) = 0xF4EFE8
+			While WinActive("[TITLE:WoT Client]") And PixelGetColor(455, 195) = 0xF4EFE8 And Not checkOffline()
 				Sleep(1000)
 			WEnd
+			If checkLogin() Then ContinueLoop
 
 			;Бой
 			writeLog("Бой начинается")
