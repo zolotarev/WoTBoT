@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Wotbot by zolotarev</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/zolotarev/WoTBoT">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/zolotarev/WoTBoT/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/zolotarev/WoTBoT/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Wotbot</h1>
+          <p>WoTBoT</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/zolotarev">zolotarev</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="wotbot-v034" class="anchor" href="#wotbot-v034"><span class="octicon octicon-link"></span></a>WoTBoT v.0.34</h1>
+
+<p>WoTBoT - это программа бот, написанная на скриптовом языке комплекса AutoIt.</p>
+
+<pre><code>SciTE Version 3.2.0
+Jun  9 2012 00:35:28  
+by Neil Hodgson.  
+Updated: Valik &amp; Jos  
+Check the SciTE4AutoIt3 Homepage for Updates  
+December 1998-June 2012.  
+http://www.scintilla.org  
+Lua scripting language by TeCGraf, PUC-Rio  
+http://www.lua.org
+</code></pre>
+
+<p>Программа представляет собой простейший настраиваемый бот для игры WorldOfTanks.
+В данной версии бот умеет двигаться вперёд, поворачивать, останавливаться, разворачиваться искать цель и стрелять по ней.
+Выбор танков для боя осуществляется автоматически из выбранных активными танков первых пяти слотов.
+Следуйте инструкциям для корректной работы бота. Если что-то не так: <a href="mailto:bel_poprygun@pisem.net">bel_poprygun@pisem.net</a>
+И помните: использование бота для получения опыта и денег противоречит правилам игры и карается вплоть до бана.</p>
+
+<p>PS: Автор и соавторы не несут никакой ответственности за действия в игре под вашим аккаунтом с использованием бота.</p>
+
+<h2>
+<a name="%D0%9F%D1%80%D0%B5%D0%B4%D0%B2%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8" class="anchor" href="#%D0%9F%D1%80%D0%B5%D0%B4%D0%B2%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8"><span class="octicon octicon-link"></span></a>Предварительные настройки</h2>
+
+<p>Бот работает с запущенным и залогиненым приложением WoT Client. Клиент должен выполняться в оконном режиме с разрешением
+1024x768. Перед запуском бота необходимо выполнить настройку клиента:</p>
+
+<ul>
+<li>Сделать прозрачным 'Маркер орудия' в 'Аркадном' и 'Снайперском' режимах"</li>
+<li>Выключить отображение любой информации о разрушенных танках</li>
+<li>Карта должна быть самого маленького размера, управление - по-умолчанию</li>
+<li>Оптимальный FPS ~20-40</li>
+</ul><h2>
+<a name="%D0%92%D1%8B%D0%B1%D0%BE%D1%80-%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%B3%D1%80%D1%8B" class="anchor" href="#%D0%92%D1%8B%D0%B1%D0%BE%D1%80-%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D0%B8%D0%B3%D1%80%D1%8B"><span class="octicon octicon-link"></span></a>Выбор танков для игры</h2>
+
+<ul>
+<li>Танки должны автоматически ремонтироваться и пополняться снарядами</li>
+<li>В данной версии движение и выцеливание средствами САУ не реализовано</li>
+</ul><h2>
+<a name="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D1%80%D0%BE%D1%8F%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8" class="anchor" href="#%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%B4%D0%B2%D0%B8%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2%D0%B5%D1%80%D0%BE%D1%8F%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8"><span class="octicon octicon-link"></span></a>Настройка движения (вероятности)</h2>
+
+<ul>
+<li>
+<strong>Разговорчики</strong>  - вероятность того, что бот будет писать в чат</li>
+<li>
+<strong>Поворот на ходу</strong> - вероятность смены направления движения на случайное значение во время движения прямо</li>
+<li>
+<strong>Остановка на ходу</strong> - вероятность смены направления движения на случайное значение во время движения прямо</li>
+</ul><h2>
+<a name="%D0%9E%D0%BF%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F" class="anchor" href="#%D0%9E%D0%BF%D1%86%D0%B8%D0%B8-%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F"><span class="octicon octicon-link"></span></a>Опции поведения</h2>
+
+<ul>
+<li>
+<strong>Остановка при наведении</strong> - танк будет останавливаться при нацеливании</li>
+<li>
+<strong>Искать цели</strong> - танк будет крутить башней в поисках вражеской цели</li>
+<li>
+<strong>Стрелять по целям</strong> - при сведении на цели танк будет стрелять</li>
+</ul><p>Запуск всегда начинается с ангара!</p>
+
+<p>Для экстренной остановки скрипта нажмите END на клавиатуре (глобальная горячая клавиша).
+Для выхода из режима управления танка ботом, не завершая скрипт сделайте окно с игрой неактивной.</p>
+
+<h2>
+<a name="%D0%9E%D1%82-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0" class="anchor" href="#%D0%9E%D1%82-%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B0"><span class="octicon octicon-link"></span></a>От автора</h2>
+
+<p>Скрипт бота писался исключительно из естествоиспытательских и образовательных целей.
+Проект призван реализовать алгоритм, максимально приближающий поведение бота в игре, к 
+поведению полноценного полезного члена команды.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
